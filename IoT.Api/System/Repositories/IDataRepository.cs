@@ -13,7 +13,6 @@ namespace IoT.Api.System.Repositories
         public Task CreateDocument(T item);
         public Task<List<T>> GetMany(FilterDefinition<T> filter);
         public Task<T> GetOne(FilterDefinition<T> filter);
-        //public Task Update();
         public Task Delete(T item);
     }
 }

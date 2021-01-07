@@ -8,6 +8,7 @@ namespace IoT.Api.System.Models
 {
     public class DataDocument
     {
+        [JsonIgnore]
         public ObjectId Id { get; set; }
         /// <summary>
         /// Температура
@@ -25,8 +26,10 @@ namespace IoT.Api.System.Models
         /// Уровень радиации
         /// </summary>
         public double Radiation { get; set; }
+        
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Date { get; set; }
         public int Hour { get; set; }
+        public int Minute { get; set; }
     }
 }

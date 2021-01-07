@@ -34,15 +34,14 @@ namespace IoT.Api.Controllers
         }
         
         [HttpGet("last")]
-        public async Task<IActionResult> GetDate(DateTime date, string time)
+        public async Task<IActionResult> GetDate(DateTime date, int hour, int minute)
         {
             try
             {
-                var span = time.Split(":");
-                
+
                 return Ok(await _dataRepository.GetOne( 
                     Builders<DataDocument>.Filter.Eq(x=>x.Date, date) &
-                    Builders<DataDocument>.Filter.Eq(x=>x.Hour, int.Parse(span[0]))));
+                    Builders<DataDocument>.Filter.Eq(x=>x.Hour, hour)));
             }
             catch(Exception ex)
             {
@@ -50,12 +49,13 @@ namespace IoT.Api.Controllers
             }
         }
         
-        [HttpGet("daterange")]
-        public async Task<IActionResult> GetDateRange(string from, string to)
+        [HttpGet("range")]
+        public async Task<IActionResult> GetDateRange(DateTime from, DateTime to)
         {
             try
             {
-                return Ok(await _dataRepository.GetMany(null));
+                return Ok(await _dataRepository.GetMany(Builders<DataDocument>.Filter.Gte(x=>x.Date, from) & 
+                                                        Builders<DataDocument>.Filter.Lte(x=>x.Date, to)));
             }
             catch(Exception ex)
             {

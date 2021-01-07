@@ -27,7 +27,7 @@ namespace IoT.Api.System.Repositories
 
         public async Task<DataDocument> GetOne(FilterDefinition<DataDocument> filter)
         {
-            return (await Context.UserNotes.FindAsync(filter)).First();
+            return (await Context.UserNotes.FindAsync(filter)).FirstOrDefault();
         }
 
         public async Task Delete(DataDocument item)
